@@ -7,11 +7,14 @@ package ru.direvius.cmppitcher;
 import java.io.IOException;
 import java.net.Socket;
 import java.security.GeneralSecurityException;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ru.direvius.cmp.CMPClient;
+import ru.direvius.cmp.CardInfoRequestBuilder;
+import ru.direvius.cmp.Util;
 import ru.direvius.pitcher.Ball;
 
 /**
@@ -39,7 +42,7 @@ public class CMPBall implements Ball {
                     Socket s = new Socket("10.0.3.70", 688);
                     CMPClient cmpClient = new CMPClient(s.getInputStream(), s.getOutputStream());
                     cmpClient.open();
-                    cmpClient.sendEncrypt(CMPClient.hexStringToByteArray("01-01-01-02-04-00-87-82-F8-03-08-09-00-00-00-10-40-92-59-04-04-4F-C8-52-CE"));
+                    cmpClient.sendEncrypt(new CardInfoRequestBuilder((byte)1, 0x8782F8, 900000010409259L, new Date()).build());
                     cmpClient.receiveDecrypt();
                     cmpClient.close();
                     s.close();

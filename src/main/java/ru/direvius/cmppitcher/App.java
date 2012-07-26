@@ -18,7 +18,7 @@ public class App {
         } catch (InterruptedException ex) {
             Logger.getLogger(ru.direvius.pitcher.App.class.getName()).log(Level.SEVERE, null, ex);
         }
-        p.setRate(5);
+        p.setRate(50);
         try {
             Thread.sleep(10000);
         } catch (InterruptedException ex) {

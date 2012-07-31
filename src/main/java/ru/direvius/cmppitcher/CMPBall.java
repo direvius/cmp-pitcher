@@ -39,10 +39,12 @@ public class CMPBall implements Ball {
 
             public void run() {
                 try {
+                    long cardNumber = CardNumberGenerator.getInstance().getCardNumber();
+                    int terminalID = TerminalIDGenerator.getInstance().getID();
                     Socket s = new Socket("10.0.3.70", 688);
                     CMPClient cmpClient = new CMPClient(s.getInputStream(), s.getOutputStream());
                     cmpClient.open();
-                    cmpClient.sendEncrypt(new CardInfoRequestBuilder((byte)1, 0x8782F8, 900000010409259L, new Date()).build());
+                    cmpClient.sendEncrypt(new CardInfoRequestBuilder((byte)1, terminalID, cardNumber, new Date()).build());
                     cmpClient.receiveDecrypt();
                     cmpClient.close();
                     s.close();

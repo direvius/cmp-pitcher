@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.direvius.cmppitcher;
 
 import java.io.IOException;
@@ -14,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ru.direvius.cmp.CMPClient;
 import ru.direvius.cmp.CardInfoRequestBuilder;
-import ru.direvius.cmp.Util;
 import ru.direvius.pitcher.Ball;
 
 /**
@@ -44,7 +39,7 @@ public class CMPBall implements Ball {
                     Socket s = new Socket("10.0.3.70", 688);
                     CMPClient cmpClient = new CMPClient(s.getInputStream(), s.getOutputStream());
                     cmpClient.open();
-                    cmpClient.sendEncrypt(new CardInfoRequestBuilder((byte)1, terminalID, cardNumber, new Date()).build());
+                    cmpClient.sendEncrypt(new CardInfoRequestBuilder(terminalID, cardNumber, new Date()).build());
                     cmpClient.receiveDecrypt();
                     cmpClient.close();
                     s.close();

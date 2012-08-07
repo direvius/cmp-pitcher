@@ -11,16 +11,12 @@ import ru.direvius.pitcher.Pitcher;
 public class App {
 
     public static void main(String[] args) {
-        Pitcher p = new Pitcher(new CMPBall());
-        p.begin(1);
+        int time = Integer.parseInt(args[0]);
+        int rps = Integer.parseInt(args[1]);
+        Pitcher p = new Pitcher(new UC1Ball());
+        p.begin(rps);
         try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ru.direvius.pitcher.App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        p.setRate(50);
-        try {
-            Thread.sleep(10000);
+            Thread.sleep(time * 1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(ru.direvius.pitcher.App.class.getName()).log(Level.SEVERE, null, ex);
         }

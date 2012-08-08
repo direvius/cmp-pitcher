@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.security.GeneralSecurityException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.direvius.cmp.CMPClient;
 import ru.direvius.cmp.requests.BonusRequest;
 import ru.direvius.cmp.requests.CardInfoRequest;
@@ -24,6 +24,7 @@ import ru.direvius.pitcher.TransactionLogger;
  * @author direvius
  */
 public class UC1Ball implements Ball {
+    private final static Logger logger = LoggerFactory.getLogger(TransactionLogger.class);
     static {
         System.setProperty("java.net.preferIPv4Stack", "true");
     }
@@ -39,7 +40,10 @@ public class UC1Ball implements Ball {
         try {
             long cardNumber = CardNumberGenerator.getInstance().getCardNumber();
             int terminalID = TerminalIDGenerator.getInstance().getID();
-            Socket s = new Socket("10.0.3.70", 688);
+            String ip = System.getProperty("cmp.ip");
+            if(ip == null) ip = "10.0.3.70";
+            logger.debug("IP: {}", ip);
+            Socket s = new Socket(ip, 688);
             CMPClient cmpClient = new CMPClient(s.getInputStream(), s.getOutputStream());
             cmpClient.open();
             
@@ -65,11 +69,11 @@ public class UC1Ball implements Ball {
             cmpClient.close();
             s.close();
         } catch (InterruptedException ex) {
-            Logger.getLogger(UC1Ball.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Interrupted while running a scenario", ex);
         } catch (IOException ex) {
-            Logger.getLogger(CMPBall.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("IO problem while running a scenario", ex);
         } catch (GeneralSecurityException ex) {
-            Logger.getLogger(CMPBall.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Crypto problem while running a scenario", ex);
         }
     }
 }

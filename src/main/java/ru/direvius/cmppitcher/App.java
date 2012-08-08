@@ -14,7 +14,7 @@ public class App {
         int time = Integer.parseInt(args[0]);
         int rps = Integer.parseInt(args[1]);
         logger.info("time: {}, rps: {}", time, rps);
-        Pitcher p = new Pitcher(new UC1Ball());
+        Pitcher p = new Pitcher(new CMPBall());
         p.begin(rps);
         try {
             Thread.sleep(time * 1000);

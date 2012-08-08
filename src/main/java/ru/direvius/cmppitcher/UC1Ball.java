@@ -24,7 +24,9 @@ import ru.direvius.pitcher.TransactionLogger;
  * @author direvius
  */
 public class UC1Ball implements Ball {
-
+    static {
+        System.setProperty("java.net.preferIPv4Stack", "true");
+    }
     TransactionLogger tl = TransactionLogger.get();
 
     public void beforeStart() {

@@ -48,22 +48,46 @@ public class UC1Ball implements Ball {
             cmpClient.open();
             
             Stopwatch swAfterOpen = new Stopwatch();
+            logger.info("card_info started, card {}", cardNumber);
             cmpClient.sendEncrypt(new CardInfoRequest(terminalID, cardNumber, new Date()).asByteArray());
+            logger.info("card_info sent, card {}", cardNumber);
             cmpClient.receiveDecrypt();
+            
+            logger.info("card_info received, card {}", cardNumber);
             tl.log("card_info", swAfterOpen.measure(), "OK");
             
-            Thread.sleep(5000);
+            Thread.sleep(2000);
+            cmpClient.keepAlive();
+            Thread.sleep(2000);
+            cmpClient.keepAlive();
+            Thread.sleep(1000);
             
             Stopwatch swAfterInfo = new Stopwatch();
+            
+            logger.info("bonus_buy started, card {}", cardNumber);
             cmpClient.sendEncrypt(new BonusRequest(new Date(), RequestFactory.get(RequestFactory.SampleType.checkModifyFuel)).asByteArray());
+            
+            logger.info("bonus_buy sent, card {}", cardNumber);
             cmpClient.receiveDecrypt();
+            
+            logger.info("bonus_buy received, card {}", cardNumber);
             tl.log("bonus_buy", swAfterInfo.measure(), "OK");
             
-            Thread.sleep(5000);
+            Thread.sleep(2000);
+            cmpClient.keepAlive();
+            Thread.sleep(2000);
+            cmpClient.keepAlive();
+            Thread.sleep(1000);
             
             Stopwatch swAfterBuy = new Stopwatch();
+            
+            logger.info("close_trn started, card {}", cardNumber);
             cmpClient.sendEncrypt(new CloseCheckRequest(RequestFactory.get(RequestFactory.SampleType.closeCheck)).asByteArray());
+            
+            logger.info("close_trn sent, card {}", cardNumber);
             cmpClient.receiveDecrypt();
+            
+            logger.info("close_trn received, card {}", cardNumber);
             tl.log("close_trn", swAfterBuy.measure(), "OK");
             
             cmpClient.close();

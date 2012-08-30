@@ -40,9 +40,7 @@ public class UC1Ball implements Ball {
         try {
             long cardNumber = CardNumberGenerator.getInstance().getCardNumber();
             int terminalID = TerminalIDGenerator.getInstance().getID();
-            String ip = System.getProperty("cmp.ip");
-            if(ip == null) ip = "10.0.3.70";
-            logger.debug("IP: {}", ip);
+            String ip = Configuration.get().serverIP();
             Socket s = new Socket(ip, 688);
             CMPClient cmpClient = new CMPClient(s.getInputStream(), s.getOutputStream());
             cmpClient.open();

@@ -4,7 +4,7 @@
 
   <groupId>ru.direvius</groupId>
   <artifactId>CMPpitcher</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.6.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <build>
     <plugins>

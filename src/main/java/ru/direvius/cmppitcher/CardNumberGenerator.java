@@ -9,7 +9,7 @@ package ru.direvius.cmppitcher;
  * @author direvius
  */
 public class CardNumberGenerator {
-    private static long cardNumber = 100000000000000L;
+    private static long cardNumber = Configuration.get().firstCardNumber();
     private CardNumberGenerator(){}
     private final static CardNumberGenerator instance = new CardNumberGenerator();
     public static CardNumberGenerator getInstance(){

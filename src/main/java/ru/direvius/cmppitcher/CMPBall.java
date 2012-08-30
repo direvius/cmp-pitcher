@@ -18,10 +18,7 @@ import ru.direvius.pitcher.Ball;
  */
 public class CMPBall implements Ball {
 
-    static {
-        System.setProperty("java.net.preferIPv4Stack", "true");
-    }
-    private static final ExecutorService es = Executors.newFixedThreadPool(100);
+    private static final ExecutorService es = Executors.newFixedThreadPool(Configuration.get().threadCount());
     public void beforeStart() {
     }
 
@@ -32,21 +29,6 @@ public class CMPBall implements Ball {
         es.submit(new Runnable() {
 
             public void run() {
-                /*try {
-                    long cardNumber = CardNumberGenerator.getInstance().getCardNumber();
-                    int terminalID = TerminalIDGenerator.getInstance().getID();
-                    Socket s = new Socket("10.0.3.70", 688);
-                    CMPClient cmpClient = new CMPClient(s.getInputStream(), s.getOutputStream());
-                    cmpClient.open();
-                    cmpClient.sendEncrypt(new CardInfoRequestBuilder(terminalID, cardNumber, new Date()).build());
-                    cmpClient.receiveDecrypt();
-                    cmpClient.close();
-                    s.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(CMPBall.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (GeneralSecurityException ex) {
-                    Logger.getLogger(CMPBall.class.getName()).log(Level.SEVERE, null, ex);
-                }*/
                 new UC1Ball().run();
             }
         });

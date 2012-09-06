@@ -41,7 +41,8 @@ public class UC1Ball implements Ball {
             long cardNumber = CardNumberGenerator.getInstance().getCardNumber();
             int terminalID = TerminalIDGenerator.getInstance().getID();
             String ip = Configuration.get().serverIP();
-            Socket s = new Socket(ip, 688);
+            int port = Configuration.get().serverPort();
+            Socket s = new Socket(ip, port);
             CMPClient cmpClient = new CMPClient(s.getInputStream(), s.getOutputStream());
             cmpClient.open();
             
